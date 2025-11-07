@@ -1,33 +1,12 @@
-'use client'; 
-
-import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { lusitana } from '@/app/ui/fonts'; 
+import Image from 'next/image';
+import { lusitana } from '@/app/ui/fonts';
+import Search from '@/app/ui/search';
 import {
   CustomersTableType,
   FormattedCustomersTable,
 } from '@/app/lib/definitions';
-// NOTA: Removemos a importação de Image from 'next/image';
 
-// Sub-componentes para as ações de Edição e Exclusão.
-function UpdateCustomer({ id }: { id: string }) {
-  // Simula o link de edição.
-  return (
-    <a href={`/dashboard/customers/${id}/edit`} className="rounded-md border p-2 hover:bg-gray-100">
-      <PencilIcon className="w-5" />
-    </a>
-  );
-}
-function DeleteCustomer({ id }: { id: string }) {
-  // Simula a ação de exclusão (funciona no Client Component)
-  return (
-    <button className="rounded-md border p-2 hover:bg-gray-100" onClick={() => console.log(`Simulação: Deletar cliente ${id}`)}>
-      <span className="sr-only">Delete</span>
-      <TrashIcon className="w-5" />
-    </button>
-  );
-}
-
-export default function CustomersTable({
+export default async function CustomersTable({
   customers,
 }: {
   customers: FormattedCustomersTable[];
@@ -37,10 +16,7 @@ export default function CustomersTable({
       <h1 className={`${lusitana.className} mb-8 text-xl md:text-2xl`}>
         Customers
       </h1>
-      {/* O Search deve estar na página pai ou ser importado separadamente, 
-          mas mantive a estrutura base aqui sem importar o Search */}
-      {/* <Search placeholder="Search customers..." /> */}
-      
+      <Search placeholder="Search customers..." />
       <div className="mt-6 flow-root">
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full align-middle">
@@ -55,16 +31,12 @@ export default function CustomersTable({
                       <div>
                         <div className="mb-2 flex items-center">
                           <div className="flex items-center gap-3">
-                            {/* CORRIGIDO: Usando <img> nativo (Mobile) */}
-                            <img
+                            <Image
                               src={customer.image_url}
                               className="rounded-full"
                               alt={`${customer.name}'s profile picture`}
                               width={28}
                               height={28}
-                              onError={(e) => {
-                                  e.currentTarget.src = 'https://placehold.co/28x28/cccccc/000000?text=NP';
-                              }}
                             />
                             <p>{customer.name}</p>
                           </div>
@@ -73,13 +45,7 @@ export default function CustomersTable({
                           {customer.email}
                         </p>
                       </div>
-                      {/* Ações (Mobile) */}
-                      <div className="flex justify-end gap-2">
-                        <UpdateCustomer id={customer.id} />
-                        <DeleteCustomer id={customer.id} />
-                      </div>
                     </div>
-                    
                     <div className="flex w-full items-center justify-between border-b py-5">
                       <div className="flex w-1/2 flex-col">
                         <p className="text-xs">Pending</p>
@@ -96,7 +62,6 @@ export default function CustomersTable({
                   </div>
                 ))}
               </div>
-              
               <table className="hidden min-w-full rounded-md text-gray-900 md:table">
                 <thead className="rounded-md bg-gray-50 text-left text-sm font-normal">
                   <tr>
@@ -115,9 +80,6 @@ export default function CustomersTable({
                     <th scope="col" className="px-4 py-5 font-medium">
                       Total Paid
                     </th>
-                    <th scope="col" className="relative py-3 pl-6 pr-3">
-                      <span className="sr-only">Actions</span>
-                    </th>
                   </tr>
                 </thead>
 
@@ -126,16 +88,12 @@ export default function CustomersTable({
                     <tr key={customer.id} className="group">
                       <td className="whitespace-nowrap bg-white py-5 pl-4 pr-3 text-sm text-black group-first-of-type:rounded-md group-last-of-type:rounded-md sm:pl-6">
                         <div className="flex items-center gap-3">
-                          {/* CORRIGIDO: Usando <img> nativo (Desktop) */}
-                          <img
+                          <Image
                             src={customer.image_url}
                             className="rounded-full"
                             alt={`${customer.name}'s profile picture`}
                             width={28}
                             height={28}
-                            onError={(e) => {
-                                e.currentTarget.src = 'https://placehold.co/28x28/cccccc/000000?text=NP';
-                            }}
                           />
                           <p>{customer.name}</p>
                         </div>
@@ -151,13 +109,6 @@ export default function CustomersTable({
                       </td>
                       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm group-first-of-type:rounded-md group-last-of-type:rounded-md">
                         {customer.total_paid}
-                      </td>
-                      {/* Coluna de Ações (Desktop) */}
-                      <td className="whitespace-nowrap bg-white py-5 pl-4 pr-3 text-sm text-black group-first-of-type:rounded-md group-last-of-type:rounded-md sm:pl-6">
-                        <div className="flex justify-end gap-3">
-                            <UpdateCustomer id={customer.id} />
-                            <DeleteCustomer id={customer.id} />
-                        </div>
                       </td>
                     </tr>
                   ))}

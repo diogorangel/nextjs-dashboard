@@ -1,6 +1,7 @@
 'use client'
 import { lusitana } from '@/app/ui/fonts';
-import { useFormState, useFormStatus } from "react-dom"; 
+import { useActionState } from "react"; // <-- UPDATED: Renamed from useFormState and imported from 'react'
+import { useFormStatus } from "react-dom"; // useFormStatus remains in 'react-dom'
 import { authenticate } from "@/app/lib/actions";
 import {
   AtSymbolIcon,
@@ -11,8 +12,8 @@ import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from './button';
 
 export default function LoginForm() {
-  // Mantido useFormState conforme solicitado para compatibilidade com a versão atual
-  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+  // UPDATED: Now uses useActionState (was useFormState)
+  const [errorMessage, dispatch] = useActionState(authenticate, undefined);
 
   return (
     <form className="space-y-3" action={dispatch}>

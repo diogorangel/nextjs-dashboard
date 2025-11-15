@@ -8,3 +8,4 @@ Install : npm install @vercel/postgres
 Begin the project from 0 : npx create-next-app@latest nextjs-dashboard --example "https://github.com/vercel/next-learn/tree/main/dashboard/starter-example"
 
 Author : @_diogorangel
+Final work

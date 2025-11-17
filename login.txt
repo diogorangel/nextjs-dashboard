@@ -2,5 +2,5 @@ email : teste@test.com
 senha : teste12345
 
 #user data
-email : user@mock.com
+email : user@dev.com
 senha : 123456

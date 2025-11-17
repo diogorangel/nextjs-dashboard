@@ -15,9 +15,9 @@ interface MockedUser extends User {
 // A senha aqui é a senha Pura (123456)
 async function getUserMocked(email: string): Promise<MockedUser | undefined> {
     const mockedUser: MockedUser = {
-        id: '12345-mock-id',
-        name: 'Mock User',
-        email: 'user@mock.com',
+        id: '12345-user-id',
+        name: 'User Dev',
+        email: 'user@dev.com',
         // Armazenamos a senha pura para simular a comparação abaixo
         password: '$2a$10$w7kQ8/z4uQ6/F0Jz/7XgO.s6Y5w8w8.oA3jD1H0v2G', // Hash de "123456" para manter a estrutura, mas usaremos uma comparação simples no authorize
         mockedPassword: '123456', // Senha pura para a lógica de comparação simples
